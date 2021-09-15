@@ -1,15 +1,18 @@
 var xBuffer = 0;
 bgColor = "#ffffff";
 
+//array com cores pré definidas
 var buildingColors = [
  "#6a040f",'#dc2f02', "#370617",'#6a040f',
  '#f48c06', '#6a040f', '#ffba08', '#6a040f'
 ]
 
+//armazena uma posição no eixo x para acréscimo posterior quando invocado a posição x de objeto retangular no DrawBuildings
 function BufferX(x) {
     xBuffer+= x;
 }
 
+//Constrói retângulos a estrutura dos prédios e janelas.
 function DrawBuilding(color, xScale, altura) {
     var canvas = document.querySelector("#canvas-id");
     var context = canvas.getContext('2d');
@@ -19,15 +22,16 @@ function DrawBuilding(color, xScale, altura) {
     BufferX(xScale);
 }
 
+//constrói a estrutura dos prédios com cores, larguras e alturas randomizadas.
 function DrawBoxContructions() {
     for(var i = 1; i < 10; i++) {
         DrawBuilding(buildingColors[Math.floor(Math.random()*buildingColors.length)],
         40+RandomInterval(20), 
         40+Math.round(RandomInterval(4)*10));
     }
-
 }
 
+//Desenhajanelas com posições e escalas dimensionadas de acordo com cada estrutura de construções.
 function DrawWindows(BoxPosX, posY, xScale) {
     var canvas = document.querySelector("#canvas-id");
     var context = canvas.getContext('2d');
@@ -39,13 +43,8 @@ function DrawWindows(BoxPosX, posY, xScale) {
     }
 }
 
-onload = function() {
-    DrawStars();
-    DrawBoxContructions();
-    DrawStreet();
-    
-}
 
+//Desenha estrelas com posições randomizadas
 function DrawStars() {
     
     var canvas = document.querySelector("#canvas-id");
@@ -61,6 +60,7 @@ function DrawStars() {
     }
 }
 
+// Desenha uma estrada
 function DrawStreet() {
     var canvas = document.querySelector("#canvas-id");
     var context = canvas.getContext('2d');
@@ -70,7 +70,16 @@ function DrawStreet() {
 
 }
 
+//método com retorno de um número aleatório com indo ao extremo inteiro de um argumento
 function RandomInterval(dimension) {
     return (Math.random() - Math.random())*dimension;
 }
 
+
+//Carrega as estrelas, construções e estradas quando o documento HTML é carregado
+onload = function() {
+    DrawStars();
+    DrawBoxContructions();
+    DrawStreet();
+    
+}
